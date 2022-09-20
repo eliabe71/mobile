@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            type="br.com.quixada.trabalho1.ModelPlaces"
+            name="mModel"
+            >
+        </variable>
+    </data>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/otherbackground"
+
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+
+            android:id="@+id/myToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+        <LinearLayout
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+
+            <EditText
+                android:id="@+id/continentChoosed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Continent"
+                >
+            </EditText>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:minWidth="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+            </Spinner>
+
+        </LinearLayout>
+
+
+        <AutoCompleteTextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/autoComplete"
+            android:minWidth="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/country"
+            android:layout_gravity="center"
+            >
+        </AutoCompleteTextView>
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/cepValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty"
+            android:hint="@string/askCep"
+            >
+        </EditText>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="É Sua Casa ?"
+                />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                >
+
+                <RadioButton
+                    android:id="@+id/buttonYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sim"
+                    android:onClick="onRadioButtonClicked" />
+                <RadioButton
+                    android:id="@+id/buttonNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Não"
+                    android:onClick="onRadioButtonClicked" />
+            </RadioGroup>
+        </LinearLayout>
+        <Button
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salvar"
+            />
+    </LinearLayout>
+</layout>
