@@ -5,12 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".PlacesPage">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
+    <ListView
+        android:id="@+id/liste"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="AQUIIIII"
-        android:textSize="40dp" />
+        android:layout_width="match_parent"
+
+        />
 
 </FrameLayout>

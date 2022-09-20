@@ -4,6 +4,7 @@ import android.content.Intent
 import android.R as Randroid
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.Editable
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private val COUNTRIES = arrayOf(
         "626900-000", "62504-010", "63900-081"
     )
+    private val Paises = arrayOf("Brasil", "Argentina", "Portugal", "Afeganistão")
     private val itens = arrayOf(
         "Sul-Americano", "America-Do-Norte", "Europa",
     )
@@ -37,20 +39,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
         bind.myToolbar.setTitle("")
+        bind.spinner.setSelection(1)
         val toolbar = bind.myToolbar
         setSupportActionBar(findViewById(R.id.myToolbar))
         //bind.viewpage.adapter = ViewerAdapter(this)
-        val adapter = ArrayAdapter<String>(this, Randroid.layout.simple_dropdown_item_1line, COUNTRIES)
+
+        val adapter = ArrayAdapter<String>(this, Randroid.layout.simple_dropdown_item_1line, Paises)
         bind.autoComplete.setAdapter(adapter)
+
         val dataAdpter = ArrayAdapter<String>(this, Randroid.layout.simple_dropdown_item_1line, itens)
         bind.spinner.adapter = dataAdpter
         bind.mModel = m_model
 
         bind.bttSave.setOnClickListener {
-            list.add(bind.cepValue.text.toString())
             if(bind.buttonYes.isChecked){
                 listHome.add(bind.cepValue.text.toString())
             }
+            else{
+                list.add(bind.cepValue.text.toString())
+            }
+
+            bind.cepValue.text = Editable.Factory.getInstance().newEditable("")
+            bind.autoComplete.text = Editable.Factory.getInstance().newEditable("")
+            bind.group.clearCheck()
             Toast.makeText(this@MainActivity, "Cep added "+list.size, Toast.LENGTH_SHORT).show()
         }
 
@@ -83,7 +94,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean{
         when(item.itemId){
             R.id.option1 ->{
-
+                System.exit(1)
             }
             R.id.option2 ->{
                 placesSave()
@@ -95,7 +106,8 @@ class MainActivity : AppCompatActivity() {
     private fun placesSave() {
         val intent = Intent(this,Places::class.java)
 
-        intent.putExtra("list", list)
+        intent.putExtra("list", listHome)
+        intent.putExtra("home", list)
         startActivity(intent)
     }
 }

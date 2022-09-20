@@ -15,18 +15,16 @@ class Places : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_places)
-        bind.viewpage.adapter = ViewerAdapter(this)
-    //setContentView(R.layout.activity_places)
-
-        //findViewById<ViewPager2>(R.id.viewpage).adapter = ViewerAdapter(this)
+        val bound = intent.extras
+        val ar = bound?.get("list") as ArrayList<String>
+        bind.viewpage.adapter = ViewerAdapter(this, ar, bound?.get("home") as ArrayList<String>)
 
         bind.viewpage.currentItem = 0
-//
-//
+
         bind.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 Toast.makeText(this@Places, "POS "+tab?.position as Int, Toast.LENGTH_LONG).show()
-                bind.viewpage.currentItem = 1
+                bind.viewpage.currentItem = tab?.position as Int
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -37,14 +35,12 @@ class Places : AppCompatActivity() {
                 //TODO("Not yet implemented")
             }
         })
-//        bind.viewpage.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//
-//
-//
-//            }
-//
-//        })
+        bind.viewpage.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                bind.tabs.getTabAt(position)?.select()
+            }
+
+        })
     }
 }
