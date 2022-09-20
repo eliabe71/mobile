@@ -116,6 +116,7 @@
             </RadioGroup>
         </LinearLayout>
         <Button
+            android:id="@+id/bttSave"
             android:layout_marginTop="10dp"
             android:padding="5dp"
             android:layout_gravity="center"

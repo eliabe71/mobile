@@ -3,14 +3,12 @@ package br.com.quixada.trabalho1
 import android.content.Intent
 import android.R as Randroid
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.RadioButton
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import br.com.quixada.trabalho1.databinding.ActivityMainBinding
@@ -23,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bind: ActivityMainBinding
     var list:ArrayList<String> = ArrayList<String>()
+    var listHome:ArrayList<String> = ArrayList<String>()
     private val url = URL("https://viacep.com.br/ws/01001000/json/")
     private lateinit var  urlConnection: URLConnection
     private lateinit var inputStream: InputStream
@@ -40,12 +39,20 @@ class MainActivity : AppCompatActivity() {
         bind.myToolbar.setTitle("")
         val toolbar = bind.myToolbar
         setSupportActionBar(findViewById(R.id.myToolbar))
-
+        //bind.viewpage.adapter = ViewerAdapter(this)
         val adapter = ArrayAdapter<String>(this, Randroid.layout.simple_dropdown_item_1line, COUNTRIES)
         bind.autoComplete.setAdapter(adapter)
         val dataAdpter = ArrayAdapter<String>(this, Randroid.layout.simple_dropdown_item_1line, itens)
         bind.spinner.adapter = dataAdpter
         bind.mModel = m_model
+
+        bind.bttSave.setOnClickListener {
+            list.add(bind.cepValue.text.toString())
+            if(bind.buttonYes.isChecked){
+                listHome.add(bind.cepValue.text.toString())
+            }
+            Toast.makeText(this@MainActivity, "Cep added "+list.size, Toast.LENGTH_SHORT).show()
+        }
 
     }
 
@@ -87,6 +94,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun placesSave() {
         val intent = Intent(this,Places::class.java)
+
+        intent.putExtra("list", list)
         startActivity(intent)
     }
 }
+
